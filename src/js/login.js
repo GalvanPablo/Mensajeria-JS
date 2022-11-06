@@ -1,0 +1,1 @@
+const usuarioLogueado = sistema.traerUsuarioPorId(1);
