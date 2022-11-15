@@ -1,22 +1,23 @@
-sessionStorage.removeItem('idUsuarioChat');
-const usuarioLogueado = sistema.traerUsuarioPorId(parseInt(sessionStorage.getItem('idUsuarioLogueado')));
+sessionStorage.removeItem('idUsuarioChat'); // Resetear el chat elegido (ya que no esta en dicha pagina)
+const usuarioLogueado = sistema.traerUsuarioPorId(parseInt(sessionStorage.getItem('idUsuarioLogueado'))); // Obtiene los datos del usuario logueado
 
-if(usuarioLogueado === undefined){
-    alert("Error al iniciar sesión");
-    window.location.href = "login.html";
+if(usuarioLogueado === undefined){ // Si el usuario no esta logueado
+    alert("Error al iniciar sesión"); // Mostrar una alerta
+    window.location.href = "login.html"; // Redirecciono al login
 }
 
-const usuario_img = document.querySelector('#user-img');
+// Muestro los datos del usuario
+const usuario_img = document.querySelector('#user-img'); // Imagen
 usuario_img.setAttribute('src', usuarioLogueado.img);
-const usuario_nombre = document.querySelector('#user-name');
+const usuario_nombre = document.querySelector('#user-name');    // Nombre y apellido
 usuario_nombre.innerText = usuarioLogueado.nombre + " " + usuarioLogueado.apellido;
-mostrarConversaciones();
+
+mostrarConversaciones();    // Muestro las conversasiones corrspondientes a el usuario logueado
 
 // CERRAR SESION
-document.querySelector('#btn_cerrarSesion').onclick = (e) =>{
-    //alert("Cerrando sesion");
-    sessionStorage.removeItem('idUsuarioActual');
-    window.location.href = "login.html";
+document.querySelector('#btn_cerrarSesion').onclick = (e) =>{   // Cuando se haga click en el boton cerrar sesion
+    sessionStorage.removeItem('idUsuarioActual');   // Elimino la id del usuario logueado
+    window.location.href = "login.html";    // Redirigo al login
 }
 
 
@@ -24,10 +25,12 @@ document.querySelector('#btn_cerrarSesion').onclick = (e) =>{
 
 
 function mostrarConversaciones(){
+    // Carga todas las conversaciones del usuario logueado en el DOM
     sistema.traerConversaciones(usuarioLogueado.idUsuario).forEach((conversacion) => mostrarConversacion(conversacion.id, conversacion.msg));
 }
 
 function mostrarConversacion(idUsuario, msg){
+    // Accede al DOM y muestra una conversacion
     const conversaciones = document.querySelector('#listadoConversaciones');
     const conv = document.createElement('a');
     //conv.setAttribute('href', `./chat.html`);

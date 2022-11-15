@@ -1,8 +1,11 @@
 function stringNulo(cadena){
+    // Retorna true si la cadena es nula
     return cadena === "" || cadena.trim() === "" || cadena == null;
 }
 
 function idInvalido(id){
+    // Verifica si el id es un numero y que este sea mayor a 0
+    // Devuelve true si el id es invalido
     id = parseInt(id)
     if(id.toString() === "NaN"){
         return true;
@@ -17,7 +20,7 @@ class Usuario{
         if(idInvalido(idUsuario)){
             throw new Error("Error al crear el usuario");
         }
-        this.idUsuario = idUsuario; // Validado a nivel listado
+        this.idUsuario = idUsuario; // Validado a nivel de listado (no repetidos)
         
         if(stringNulo(nombre)){
             throw new Error("El nombre no puede ser nulo");
@@ -29,7 +32,7 @@ class Usuario{
         }
         this.apellido = apellido;  // !nulo
 
-        const emailMask = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+        const emailMask = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i; // Mascara del formato de correo
         if (!emailMask.test(mail)) {
             throw new Error("Mail incorreto");
         }
@@ -40,10 +43,6 @@ class Usuario{
         }
         this.passwd = passwd;  // !nulo
         this.img = img; // Opcional
-
-        /*  Se que con setters y getters se puede validar incluso cuando se edita atributo por atributo
-            pero por mi cuenta no logro entender como se hace correctamente
-        */
     }
 }
 
@@ -102,7 +101,6 @@ class Sistema{
     }
 
     // La funcion de nuevo usuario simplemente crea usuarios con un id autoincremental
-    // Cuando se registra un nuevo usuario se llama a la siguiente funcion para crearlo
     nuevoUsuario(nombre, apellido, mail, passwd, img){
         let id = 1;
         if(this.lstUsuarios.length > 0){    // Si ya hay usuarios
@@ -155,7 +153,9 @@ class Sistema{
     }
 
     traerConversaciones(idUsuario){
-        //  Devuelve las id de los usuarios que tuvieron algun mensaje con cuya id es igual a la pasada por parametro
+        /*  Devuelve las id de los usuarios que tuvieron algun mensaje con cuya id es igual a la pasada por parametro
+            Ya sea que emisor o receptor de los mensajes
+        */
         const msgUsuarios = [];
         this.lstMensajes.reverse().forEach((mensaje) =>{
             let id = 0;
@@ -190,13 +190,16 @@ function guardarSistema(){
 }
 
 function cargarSistema(){
-    const sistJSON = localStorage.getItem('sistema');
-    //console.log(sistJSON);
+    /*  Que hace esta funcion:
+        Es la encargada de verificar si en el localStorage hay datos cargados.
+        Si los hay los toma de ahí
+        Si no los hay los genera y los guarda
+    */
+    const sistJSON = localStorage.getItem('sistema'); // Intento obtener los datos del storage
 
-    let sist = new Sistema();
-    if(sistJSON === undefined || sistJSON === null){
-        //console.log("NO Existe");
-        // ==================== CARGA DE DATOS ====================
+    let sist = new Sistema(); // Creo el sistema
+    if(sistJSON === undefined || sistJSON === null){    // Si no encuntro datos en el storage
+        // PRE-CARGO LOS DATOS
         // Usuarios
         sist.nuevoUsuario("Pablo", "Galvan", "pablogalvan.015@gmail.com", "2002", "https://ath2.unileverservices.com/wp-content/uploads/sites/5/2018/02/acondicionador-de-cabello-para-hombre-e1517521713969.jpg");
         sist.nuevoUsuario("Va", "Lentin", "valentin@correo.com", "1234", "https://e00-elmundo.uecdn.es/assets/multimedia/imagenes/2021/11/11/16366277520929.jpg");
@@ -213,13 +216,14 @@ function cargarSistema(){
         sist.nuevoMensaje(1, 3, "Che estas para ds?");
         sist.nuevoMensaje(3, 1, "En 5 me conecto");
         console.log("NUEVO SISTEMA CARGADO");
-    }else{
-        //console.log("Existe");
+    }else{ // Si ya existen datos en el storage
         const datos = JSON.parse(sistJSON); 
-        datos.lstUsuarios.forEach((usuario) => sist.cargarUsuario(usuario.idUsuario, usuario.nombre, usuario.apellido, usuario.mail, usuario.passwd, usuario.img));
-        datos.lstMensajes.forEach((mensaje) => sist.cargarMensajes(mensaje.idMensaje, mensaje.idOrigen, mensaje.idDestino, mensaje.msg));
+        // Paso los datos a un objeto
+        // Esto lo hago listado por listado ya que tengo que hacer uso del constructor de Usuario y Mensaje para luego poder usar sus metodos
+        datos.lstUsuarios.forEach((usuario) => sist.cargarUsuario(usuario.idUsuario, usuario.nombre, usuario.apellido, usuario.mail, usuario.passwd, usuario.img)); // Cargo todos los usuarios en el sistema
+        datos.lstMensajes.forEach((mensaje) => sist.cargarMensajes(mensaje.idMensaje, mensaje.idOrigen, mensaje.idDestino, mensaje.msg));   // Cargo todos los mensajes en el sistema
         console.log("VIEJO SISTEMA CARGADO");
         console.log(sist);
     }
-    return sist;
+    return sist; // Devuelvo el sistema con los datos cargados
 }

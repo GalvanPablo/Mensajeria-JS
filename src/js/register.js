@@ -9,10 +9,13 @@ form_registro.onsubmit = (e) =>{
     const passwd = document.querySelector('#txt_passwd').value;
     const urlImg = document.querySelector('#txt_urlImg').value;
     
+    /*  Hago uso del try y catch para poder informar al usuario los errores que puede tener al crear un usuario
+        Dichos errores son arrojados desde el constructor del Usuario
+        Y son verificados aca para poder avisar al usuario que tipo de error se genero
+    */
     try {
         if(sistema.nuevoUsuario(nombre, apellido, mail, passwd, urlImg)){
             alert("Se creo el usuario correctamente");
-            //console.log(sistema.lstUsuarios[sistema.lstUsuarios.length-1]);
             guardarSistema();
             window.location.href = "./src/pages/login.html";
         }else{

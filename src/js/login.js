@@ -6,18 +6,12 @@ form_login.onsubmit = (e) =>{
     const mail = document.querySelector('#txt_mail');
     const passwd = document.querySelector('#txt_passwd');
 
-    const user = sistema.traerUsuarioPorMail(mail.value.toString());
+    const user = sistema.traerUsuarioPorMail(mail.value.toString()); // Obtengo los datos del usuario mediante su mail
 
-    /*
-    console.log(user);
-    console.log("Contraseña: " + passwd.value)
-    */
-
-    if(user.passwd === passwd.value.toString()){
-        //alert("Iniciando sesion");
-        sessionStorage.setItem('idUsuarioLogueado', user.idUsuario);
-        window.location.href = "conversaciones.html";
-    }else{
-        alert("Datos incorrectos");
+    if(user.passwd === passwd.value.toString()){    // Si conincide su contraseña
+        sessionStorage.setItem('idUsuarioLogueado', user.idUsuario);    // Se guarda el id del usuario actual
+        window.location.href = "conversaciones.html";   // Se redirige a sus conversasiones
+    }else{  // Si los datos son incorrectos
+        alert("Datos incorrectos"); // No se puede iniciar sesion
     }
 }

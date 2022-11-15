@@ -1,13 +1,13 @@
-const usuarioLogueado = sistema.traerUsuarioPorId(parseInt(sessionStorage.getItem('idUsuarioLogueado')));
-const idUsuarioChat = parseInt(sessionStorage.getItem('idUsuarioChat'));
-console.log(idUsuarioChat)
-if(usuarioLogueado === undefined){
-    alert("Error al iniciar sesión");
-    window.location.href = "login.html";
+const usuarioLogueado = sistema.traerUsuarioPorId(parseInt(sessionStorage.getItem('idUsuarioLogueado'))); // Obtengo los datos del usuario logueado
+const idUsuarioChat = parseInt(sessionStorage.getItem('idUsuarioChat')); // Obtengo el id del usuario del chat
+
+if(usuarioLogueado === undefined){  // Si el usuario no esta logueado
+    alert("Error al iniciar sesión"); // Avisar al usuario
+    window.location.href = "login.html";    // Redirigir al login
 }
-if(idUsuarioChat === "NaN"){
-    alert("Error al abrir el chat");
-    window.location.href = "conversaciones.html";
+if(idUsuarioChat === "NaN"){    // Si no es correcto el id del usuario del chat
+    alert("Error al abrir el chat");    // Avisar al usuario
+    window.location.href = "conversaciones.html";   // Redirigir a las conversaciones
 }
 
 
