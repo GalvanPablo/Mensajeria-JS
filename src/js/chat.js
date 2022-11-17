@@ -75,16 +75,26 @@ function mostrarChat(){
 // ENTER EN EL CHAT
 const txt_msg = document.querySelector('#txt_msg');
 txt_msg.onkeydown = (e) =>{
-    if(e.key == "Enter"){
+    if(e.key == "Enter" && txt_msg.value.length != 0){
+        e.preventDefault();
         enviarMensaje();
     }
 }
+txt_msg.oninput = (e) =>{
+    if(txt_msg.value.length == 0){
+        btn_enviar.classList.remove('active');
+    }else{
+        btn_enviar.classList.add('active');
+    }
+}
 
-/*
 // BTN ENVIAR
 const btn_enviar = document.querySelector('#btn_enviar');
-btn_enviar.onclick = enviarMensaje();
-*/
+btn_enviar.onclick = (e) =>{
+    e.preventDefault();
+    enviarMensaje();
+}
+
 
 function enviarMensaje(){
     sistema.nuevoMensaje(usuarioLogueado.idUsuario, idUsuarioChat, txt_msg.value.toString());
@@ -97,15 +107,3 @@ const form_mensaje = document.querySelector('#form_mensaje');
 form_mensaje.onsubmit = (e) => {
     e.preventDefault();
 }
-
-/*
-const form_mensaje = document.querySelector('#form_mensaje')
-form_mensaje.onsubmit = (e) =>{
-    e.preventDefault();
-    const txt_msg = Array.from(e.target.children)[1];
-    sistema.nuevoMensaje(usuarioLogueado.idUsuario, idUsuarioChat, txt_msg.value);
-    mostrarChat();
-    txt_msg.value = "";
-}
-*/
-
