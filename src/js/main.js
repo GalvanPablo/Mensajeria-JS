@@ -94,10 +94,7 @@ class Sistema{
             throw new Error("Usuario existente");   // Ya existe un usuario con dicho mail
         }
         this.lstUsuarios.push(new Usuario(idUsuario, nombre, apellido, mail, passwd, img));
-        if(this.lstUsuarios.length === longitud+1){ // Verificar si se agrego o no el usuario
-            return true;   // 
-        }
-        return ;
+        return (this.lstUsuarios.length === longitud+1) // Verificar si se agrego o no el usuario
     }
 
     // La funcion de nuevo usuario simplemente crea usuarios con un id autoincremental
@@ -176,7 +173,10 @@ class Sistema{
 
 
 
-
+/*  La siguiente linea de codigo es usada para resetear lo almacenado en el storage
+    La descomento, refresco la pagina, y la vuelvo a comentar
+    Asi puedo eliminar lo que se haya guardado en el sistema
+*/
 //localStorage.clear();
 let sistema = cargarSistema();
 guardarSistema();

@@ -24,16 +24,18 @@ mostrarChat();
 // ==================== FUNCIONES ====================
 function mostrarMensaje(idUsuarioActual, obj_msg){
     let tipo = "";
+
+    // Obtengo que tipo de mensaje es
     if(idUsuarioActual === obj_msg.idOrigen && idUsuarioActual !== obj_msg.idDestino){
-        tipo = "outgoing";
+        tipo = "outgoing";  // Saliente
     }else{
-        tipo = "incoming";
+        tipo = "incoming";  // Entrante
     }
     
     const chat = document.querySelector('#chat-box');
     const message = document.createElement('div');
     message.setAttribute('class', `chat ${tipo}`);
-    switch(tipo){
+    switch(tipo){   // Segun que tipo de mensaje sea
         case "outgoing":
             message.innerHTML =`<div class="details">
                                     <p>${obj_msg.msg}</p>
@@ -75,12 +77,14 @@ function mostrarChat(){
 // ENTER EN EL CHAT
 const txt_msg = document.querySelector('#txt_msg');
 txt_msg.onkeydown = (e) =>{
+    // Usar enter para enviar
     if(e.key == "Enter" && txt_msg.value.length != 0){
         e.preventDefault();
         enviarMensaje();
     }
 }
 txt_msg.oninput = (e) =>{
+    // Cambiar el estado del boton para poder enviar o no segun si el campo esta vacio
     if(txt_msg.value.length == 0){
         btn_enviar.classList.remove('active');
     }else{
@@ -101,9 +105,5 @@ function enviarMensaje(){
     txt_msg.value = "";
     mostrarChat();
     guardarSistema();
-}
-
-const form_mensaje = document.querySelector('#form_mensaje');
-form_mensaje.onsubmit = (e) => {
-    e.preventDefault();
+    btn_enviar.classList.remove('active');
 }
