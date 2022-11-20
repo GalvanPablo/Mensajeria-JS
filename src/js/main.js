@@ -91,7 +91,7 @@ class Sistema{
             throw new Error("Error al crear usuario");  // El id de usuario no se encuentra disponible
         }
         if(emailUtilizado){
-            throw new Error("Usuario existente");   // Ya existe un usuario con dicho mail
+            throw new Error("El mail ingresado ya pertenece a un usuario");   // Ya existe un usuario con dicho mail
         }
         this.lstUsuarios.push(new Usuario(idUsuario, nombre, apellido, mail, passwd, img));
         return (this.lstUsuarios.length === longitud+1) // Verificar si se agrego o no el usuario

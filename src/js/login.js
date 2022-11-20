@@ -12,6 +12,6 @@ form_login.onsubmit = (e) =>{
         sessionStorage.setItem('idUsuarioLogueado', user.idUsuario);    // Se guarda el id del usuario actual
         window.location.href = "conversaciones.html";   // Se redirige a sus conversasiones
     }else{  // Si los datos son incorrectos
-        alert("Datos incorrectos"); // No se puede iniciar sesion
+        Notiflix.Notify.failure("Datos incorrectos"); // No se puede iniciar sesion
     }
 }

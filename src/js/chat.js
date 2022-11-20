@@ -2,18 +2,25 @@ const usuarioLogueado = sistema.traerUsuarioPorId(parseInt(sessionStorage.getIte
 const idUsuarioChat = parseInt(sessionStorage.getItem('idUsuarioChat')); // Obtengo el id del usuario del chat
 
 if(usuarioLogueado === undefined){  // Si el usuario no esta logueado
-    alert("Error al iniciar sesión"); // Avisar al usuario
-    window.location.href = "login.html";    // Redirigir al login
+    Notiflix.Notify.failure("Error al iniciar sesión"); // Mostrar una alerta
+    setTimeout(function(){
+        window.location.href = "login.html"; // Redirecciono al login
+    }, 1000);
 }
-if(idUsuarioChat === "NaN"){    // Si no es correcto el id del usuario del chat
-    alert("Error al abrir el chat");    // Avisar al usuario
-    window.location.href = "conversaciones.html";   // Redirigir a las conversaciones
+
+
+if(isNaN(idUsuarioChat)){    // Si no es correcto el id del usuario del chat
+    Notiflix.Notify.failure("Error al abrir el chat"); // Mostrar una alerta
+    setTimeout(function(){
+        window.location.href = "conversaciones.html";   // Redirigir a las conversaciones
+    }, 1000);
 }
 
 
 // Mostrar imagen de perfil
 const chat_img = document.querySelector('#perfil-img');
 chat_img.setAttribute('src', sistema.traerUsuarioPorId(idUsuarioChat).img);
+
 // Mostrar nombre de perfil
 const chat_nombre = document.querySelector('#perfil-nombre');
 chat_nombre.innerText = sistema.traerUsuarioPorId(idUsuarioChat).nombre + " " + sistema.traerUsuarioPorId(idUsuarioChat).apellido;

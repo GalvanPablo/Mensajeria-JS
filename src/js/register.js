@@ -15,17 +15,19 @@ form_registro.onsubmit = (e) =>{
     */
     try {
         if(sistema.nuevoUsuario(nombre, apellido, mail, passwd, urlImg)){
-            alert("Se creo el usuario correctamente");
+            Notiflix.Notify.success("Se creo el usuario correctamente");
             guardarSistema();
-            window.location.href = "./src/pages/login.html";
+            setTimeout(function(){
+                window.location.href = "./src/pages/login.html";
+            }, 1000);
         }else{
-            alert("Error al crear el usuario");
+            otiflix.Notify.failure("Error al crear el usuario");
         }
     } catch (error) {
         if(error.toString() == "Error: Mail incorreto"){
-            alert(error + `\nPruebe con el formato\n    ejemplo@correo.com`);
+            Notiflix.Notify.warning(error + `\nPruebe con el formato\n    ejemplo@correo.com`);
         }else{
-            alert(error);
+            Notiflix.Notify.failure(`${error}`);
         }
     }
 }

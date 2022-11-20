@@ -1,14 +1,17 @@
 sessionStorage.removeItem('idUsuarioChat'); // Resetear el chat elegido (ya que no esta en dicha pagina)
 const usuarioLogueado = sistema.traerUsuarioPorId(parseInt(sessionStorage.getItem('idUsuarioLogueado'))); // Obtiene los datos del usuario logueado
 
-if(usuarioLogueado === undefined){ // Si el usuario no esta logueado
-    alert("Error al iniciar sesión"); // Mostrar una alerta
-    window.location.href = "login.html"; // Redirecciono al login
+if(usuarioLogueado == undefined || usuarioLogueado == null){ // Si el usuario no esta logueado
+    Notiflix.Notify.failure("Error al iniciar sesión"); // Mostrar una alerta
+    setTimeout(function(){
+        window.location.href = "login.html"; // Redirecciono al login
+    }, 1000);
 }
 
 // Muestro los datos del usuario
 const usuario_img = document.querySelector('#user-img'); // Imagen
 usuario_img.setAttribute('src', usuarioLogueado.img);
+
 const usuario_nombre = document.querySelector('#user-name');    // Nombre y apellido
 usuario_nombre.innerText = usuarioLogueado.nombre + " " + usuarioLogueado.apellido;
 
@@ -22,8 +25,6 @@ document.querySelector('#btn_cerrarSesion').onclick = (e) =>{   // Cuando se hag
 
 
 
-
-
 function mostrarConversaciones(){
     // Carga todas las conversaciones del usuario logueado en el DOM
     sistema.traerConversaciones(usuarioLogueado.idUsuario).forEach((conversacion) => mostrarConversacion(conversacion.id, conversacion.msg));
@@ -33,7 +34,6 @@ function mostrarConversacion(idUsuario, msg){
     // Accede al DOM y muestra una conversacion
     const conversaciones = document.querySelector('#listadoConversaciones');
     const conv = document.createElement('a');
-    //conv.setAttribute('href', `./chat.html`);
     conv.onclick = (e) =>{
         sessionStorage.setItem('idUsuarioChat', idUsuario);
         window.location.href = "chat.html";
@@ -48,6 +48,5 @@ function mostrarConversacion(idUsuario, msg){
         </div>
     </div>
     `;
-    //<div class="status-dot online"><i class="bi bi-circle-fill"></i></div>
     conversaciones.append(conv);
 }
