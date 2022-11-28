@@ -1,0 +1,36 @@
+[
+    {
+        "idMensaje": 1,
+        "idOrigen": 1,
+        "idDestino": 2,
+        "msg": "Hola, todo bien?"
+    },
+    {
+        "idMensaje": 2, 
+        "idOrigen": 2,
+        "idDestino": 1,
+        "msg": "Si, todo tranki" },
+    {
+        "idMensaje": 3,
+        "idOrigen": 1,
+        "idDestino": 2,
+        "msg": "Che queres ir el sabado a la plaza?"
+    },
+    {
+        "idMensaje": 4,
+        "idOrigen": 2,
+        "idDestino": 1,
+        "msg": "Si porque no" },
+    {
+        "idMensaje": 5,
+        "idOrigen": 1,
+        "idDestino": 3,
+        "msg": "Che estas para ds?"
+    },
+    {
+        "idMensaje": 6,
+        "idOrigen": 3,
+        "idDestino": 1,
+        "msg": "En 5 me conecto"
+    }
+]

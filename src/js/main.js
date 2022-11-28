@@ -178,6 +178,7 @@ class Sistema{
     Asi puedo eliminar lo que se haya guardado en el sistema
 */
 //localStorage.clear();
+// let sistema = cargarSistema();
 let sistema = cargarSistema();
 guardarSistema();
 
@@ -189,6 +190,8 @@ function guardarSistema(){
     localStorage.setItem('sistema', JSON.stringify(sistema));
 }
 
+
+
 function cargarSistema(){
     /*  Que hace esta funcion:
         Es la encargada de verificar si en el localStorage hay datos cargados.
@@ -199,23 +202,10 @@ function cargarSistema(){
 
     let sist = new Sistema(); // Creo el sistema
     if(sistJSON === undefined || sistJSON === null){    // Si no encuntro datos en el storage
-        // PRE-CARGO LOS DATOS
-        // Usuarios
-        sist.nuevoUsuario("Pablo", "Galvan", "pablogalvan.015@gmail.com", "2002", "https://ath2.unileverservices.com/wp-content/uploads/sites/5/2018/02/acondicionador-de-cabello-para-hombre-e1517521713969.jpg");
-        sist.nuevoUsuario("Va", "Lentin", "valentin@correo.com", "1234", "https://e00-elmundo.uecdn.es/assets/multimedia/imagenes/2021/11/11/16366277520929.jpg");
-        sist.nuevoUsuario("Lautaro", "Caraballo", "lautaro@clarity.com", "elpepe", "https://fotos.perfil.com/2020/09/08/trim/950/534/dia-del-programador-festejo-con-escasez-de-profesionales-1013463.jpg");
-        sist.nuevoUsuario("Santiago", "Martinez", "sanMartinEz@gmail.com", "123456", "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.webp")
+        // PRE-CARGO LOS DATOS DESDE ARCHIVO JSON (Simulando una API)
+        cargarUsuarios(sist);
+        cargarMensajes(sist);
 
-        // Conversación entre usuario 1 y 2
-        sist.nuevoMensaje(1, 2, "Hola, todo bien?");
-        sist.nuevoMensaje(2, 1, "Si, todo tranki");
-        sist.nuevoMensaje(1, 2, "Che queres ir el sabado a la plaza?");
-        sist.nuevoMensaje(2, 1, "Si porque no");
-
-        // Conversación entre usuario 1 y 3
-        sist.nuevoMensaje(1, 3, "Che estas para ds?");
-        sist.nuevoMensaje(3, 1, "En 5 me conecto");
-        console.log("NUEVO SISTEMA CARGADO");
     }else{ // Si ya existen datos en el storage
         const datos = JSON.parse(sistJSON); 
         // Paso los datos a un objeto
@@ -226,4 +216,33 @@ function cargarSistema(){
         console.log(sist);
     }
     return sist; // Devuelvo el sistema con los datos cargados
+}
+
+
+async function cargarUsuarios(sist){
+    fetch('src/json/usuarios.json')
+        .then((response) => response.json())
+        .then((usuarios) => {
+            usuarios.forEach((usuario) => sist.cargarUsuario(usuario.idUsuario, usuario.nombre, usuario.apellido, usuario.mail, usuario.passwd, usuario.img));  // Cargo todos los usuarios en el sistema
+            console.log("Se cargaron los usuarios");
+            guardarSistema();
+        })
+        .catch((error) =>{
+            console.log("ERROR AL CARGAR LOS USUARIOS");
+            console.log(error);
+        })
+}
+
+async function cargarMensajes(sist){
+    fetch('src/json/mensajes.json')
+        .then((response) => response.json())
+        .then((mensajes) => {
+            mensajes.forEach((mensaje) => sist.cargarMensajes(mensaje.idMensaje, mensaje.idOrigen, mensaje.idDestino, mensaje.msg));   // Cargo todos los mensajes en el sistema
+            console.log("Se cargaron los mensajes")
+            guardarSistema();
+        })
+        .catch((error) =>{
+            console.log("ERROR AL CARGAR LOS USUARIOS");
+            console.log(error);
+        })
 }

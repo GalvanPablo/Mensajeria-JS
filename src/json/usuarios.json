@@ -1,0 +1,34 @@
+[
+    {
+    "idUsuario": 1,
+    "nombre": "Pablo",
+    "apellido": "Galvan",
+    "mail": "pablogalvan.015@gmail.com",
+    "passwd": "2002",
+    "img": "https://ath2.unileverservices.com/wp-content/uploads/sites/5/2018/02/acondicionador-de-cabello-para-hombre-e1517521713969.jpg"
+    },
+    {
+    "idUsuario": 2,
+    "nombre": "Va",
+    "apellido": "Lentin",
+    "mail": "valentin@correo.com",
+    "passwd": "1234",
+    "img": "https://e00-elmundo.uecdn.es/assets/multimedia/imagenes/2021/11/11/16366277520929.jpg"
+    },
+    {
+    "idUsuario": 3,
+    "nombre": "Lautaro",
+    "apellido": "Caraballo",
+    "mail": "lautaro@clarity.com",
+    "passwd": "elpepe",
+    "img": "https://fotos.perfil.com/2020/09/08/trim/950/534/dia-del-programador-festejo-con-escasez-de-profesionales-1013463.jpg"
+    },
+    {
+    "idUsuario": 4,
+    "nombre": "Santiago",
+    "apellido": "Martinez",
+    "mail": "sanMartinEz@gmail.com",
+    "passwd": "123456",
+    "img": "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.webp"
+    }
+]
