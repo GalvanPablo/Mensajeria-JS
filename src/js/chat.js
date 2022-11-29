@@ -66,16 +66,11 @@ function mostrarChat(){
     if(usuarioLogueado.idUsuario === idUsuarioChat){
         throw new Error("No puede haber un chat que sea solo de 1 usuario");
     }
-    // console.log("Usuario actual: " + usuarioLogueado.idUsuarioChat);
-    // console.log("Otro usuario: " + idUsuarioChat);
     const chat = sistema.traerChat(usuarioLogueado.idUsuario, idUsuarioChat);
-    //console.log(chat);
     if(chat.length > 0){
         const contenedor = document.getElementById('chat-box');
         contenedor.innerHTML = "";
         chat.forEach((msj) => mostrarMensaje(usuarioLogueado.idUsuario, msj));
-    }else{
-        console.log("NO EXISTEN MENSAJES");
     }
 }
 

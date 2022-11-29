@@ -212,8 +212,8 @@ function cargarSistema(){
         // Esto lo hago listado por listado ya que tengo que hacer uso del constructor de Usuario y Mensaje para luego poder usar sus metodos
         datos.lstUsuarios.forEach((usuario) => sist.cargarUsuario(usuario.idUsuario, usuario.nombre, usuario.apellido, usuario.mail, usuario.passwd, usuario.img)); // Cargo todos los usuarios en el sistema
         datos.lstMensajes.forEach((mensaje) => sist.cargarMensajes(mensaje.idMensaje, mensaje.idOrigen, mensaje.idDestino, mensaje.msg));   // Cargo todos los mensajes en el sistema
-        console.log("VIEJO SISTEMA CARGADO");
-        console.log(sist);
+        //console.log("VIEJO SISTEMA CARGADO");
+        //console.log(sist);
     }
     return sist; // Devuelvo el sistema con los datos cargados
 }
@@ -224,12 +224,12 @@ async function cargarUsuarios(sist){
         .then((response) => response.json())
         .then((usuarios) => {
             usuarios.forEach((usuario) => sist.cargarUsuario(usuario.idUsuario, usuario.nombre, usuario.apellido, usuario.mail, usuario.passwd, usuario.img));  // Cargo todos los usuarios en el sistema
-            console.log("Se cargaron los usuarios");
+            //console.log("Se cargaron los usuarios");
             guardarSistema();
         })
         .catch((error) =>{
-            console.log("ERROR AL CARGAR LOS USUARIOS");
-            console.log(error);
+            //console.log("ERROR AL CARGAR LOS USUARIOS");
+            //console.log(error);
         })
 }
 
@@ -238,11 +238,11 @@ async function cargarMensajes(sist){
         .then((response) => response.json())
         .then((mensajes) => {
             mensajes.forEach((mensaje) => sist.cargarMensajes(mensaje.idMensaje, mensaje.idOrigen, mensaje.idDestino, mensaje.msg));   // Cargo todos los mensajes en el sistema
-            console.log("Se cargaron los mensajes")
+            //console.log("Se cargaron los mensajes")
             guardarSistema();
         })
         .catch((error) =>{
-            console.log("ERROR AL CARGAR LOS USUARIOS");
-            console.log(error);
+            //console.log("ERROR AL CARGAR LOS USUARIOS");
+            //console.log(error);
         })
 }
